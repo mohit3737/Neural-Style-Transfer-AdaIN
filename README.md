@@ -110,11 +110,12 @@ python run_tests.py
 
 Benchmarked on **Intel Core i7-13620H** and **NVIDIA GeForce RTX 4060 Laptop GPU (8GB VRAM)**:
 
-| Method | Resolution | Device | Latency | VRAM Allocated |
+| Method | Resolution | Device | Latency | Memory / VRAM |
 | :--- | :--- | :--- | :--- | :--- |
-| **AdaIN Feed-Forward** | 256×256 | CUDA | **16.8 ms** | 25.4 MB |
-| **AdaIN Feed-Forward** | 384×384 | CUDA | **26.1 ms** | 62.3 MB |
-| **Perceptual NST (180 iters)** | 384×384 | CUDA | **4.97 s** | 138.0 MB |
+| **AdaIN Feed-Forward** | 256×256 | Cloud CPU | **~350 ms** | ~180 MB |
+| **AdaIN Feed-Forward** | 256×256 | CUDA (RTX 4060) | **16.8 ms** | 25.4 MB |
+| **AdaIN Feed-Forward** | 384×384 | CUDA (RTX 4060) | **26.1 ms** | 62.3 MB |
+| **Perceptual NST (180 iters)** | 384×384 | CUDA (RTX 4060) | **4.97 s** | 138.0 MB |
 
 ---
 
@@ -150,4 +151,4 @@ VGG19 features a strictly sequential feed-forward convolutional architecture wit
 
 **Mohit Ramoliya**  
 AI/ML Engineer & Deep Learning Practitioner  
-[GitHub Profile](https://github.com/mohitramoliya) • [LinkedIn](https://linkedin.com)
+[GitHub Profile](https://github.com/mohit3737) • [Live App](https://neural-style-transfer-adain-jcnwxjcmfy3crkvciaw36y.streamlit.app/)
