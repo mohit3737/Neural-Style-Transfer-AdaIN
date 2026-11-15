@@ -116,11 +116,12 @@ with st.sidebar:
 
     st.markdown("---")
     st.subheader("📐 Resolution & Parameters")
+    default_res = 256 if device_opt == "cpu" else 384
     image_size = st.select_slider(
         "Resolution (Pixels)",
         options=[256, 384, 512],
-        value=384,
-        help="384px is recommended for sharp painterly brushwork with low latency."
+        value=default_res,
+        help="256px is optimal for fast CPU execution; 384px-512px for GPU."
     )
 
     if "Fast AdaIN" in mode:
@@ -140,7 +141,15 @@ with st.sidebar:
             format_func=lambda x: f"{x:.0e}",
             help="Higher values force stronger brushstrokes and painterly textures."
         )
-        steps = st.slider("Optimization Steps", min_value=60, max_value=300, value=200, step=20)
+        default_steps = 60 if device_opt == "cpu" else 180
+        steps = st.slider(
+            "Optimization Steps",
+            min_value=40,
+            max_value=250,
+            value=default_steps,
+            step=20,
+            help="40-80 steps recommended on cloud CPU to avoid throttling; 180+ on GPU."
+        )
         color_transfer = st.checkbox("Transfer Style Color Palette", value=True,
                                      help="Adapts scene lighting and colors to match the style artwork.")
 
