@@ -303,8 +303,10 @@ if st.button("✨ Generate Stylized Artwork", use_container_width=True):
 # ---------------------------------------------------------------------------
 st.markdown("---")
 st.markdown(
-    "<div style='text-align: center; color: #888; font-size: 0.85rem;'>"
-    "AdaIN Neural Style Transfer Studio • PyTorch & NVIDIA CUDA • Senior AI/ML Architecture"
+    "<div style='text-align: center; color: #888; font-size: 0.88rem;'>"
+    "🎨 <b>AdaIN Neural Style Transfer Studio</b> • Developed by "
+    "<a href='https://github.com/mohit3737/Neural-Style-Transfer-AdaIN' target='_blank' style='color: #FF4B4B; text-decoration: none; font-weight: bold;'>Mohit Ramoliya</a> "
+    "• PyTorch & Streamlit"
     "</div>",
     unsafe_allow_html=True
 )
