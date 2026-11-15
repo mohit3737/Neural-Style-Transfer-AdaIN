@@ -11,10 +11,12 @@ from typing import Optional
 
 import streamlit as st
 import torch
+import importlib
 from PIL import Image
 from torchvision.transforms import functional as TF
 
 import adain_model as am
+importlib.reload(am)
 
 # ---------------------------------------------------------------------------
 # 1. Page Configuration & UI Theme
@@ -264,19 +266,33 @@ if st.button("✨ Generate Stylized Artwork", use_container_width=True):
                 if step % 2 == 0 or step == total:
                     prog_bar.progress(step / total, text=f"🎨 Synthesizing museum-quality brushstrokes... ({step}/{total} steps)")
 
-            res_tensor = am.perceptual_style_transfer(
-                content_tensor=c_tensor,
-                style_tensor=s_tensor,
-                steps=steps,
-                lr=0.04,
-                style_weight=style_weight,
-                content_weight=0.6,
-                tv_weight=1e-5,
-                color_transfer=color_transfer,
-                device=device,
-                encoder=encoder,
-                callback=progress_callback
-            )
+            try:
+                res_tensor = am.perceptual_style_transfer(
+                    content_tensor=c_tensor,
+                    style_tensor=s_tensor,
+                    steps=steps,
+                    lr=0.04,
+                    style_weight=style_weight,
+                    content_weight=0.6,
+                    tv_weight=1e-5,
+                    color_transfer=color_transfer,
+                    device=device,
+                    encoder=encoder,
+                    callback=progress_callback
+                )
+            except TypeError:
+                res_tensor = am.perceptual_style_transfer(
+                    content_tensor=c_tensor,
+                    style_tensor=s_tensor,
+                    steps=steps,
+                    lr=0.04,
+                    style_weight=style_weight,
+                    content_weight=0.6,
+                    tv_weight=1e-5,
+                    color_transfer=color_transfer,
+                    device=device,
+                    encoder=encoder
+                )
             prog_placeholder.empty()
             res_pil = TF.to_pil_image(res_tensor[0].cpu().clamp(0, 1))
             elapsed = time.time() - t_start
