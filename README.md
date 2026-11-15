@@ -1,3 +1,15 @@
+---
+title: Neural Style Transfer AdaIN
+emoji: 🎨
+colorFrom: purple
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.39.0
+app_file: app.py
+pinned: false
+license: mit
+---
+
 # 🎨 AdaIN Neural Style Transfer Studio
 ### Arbitrary Real-Time Neural Style Transfer with PyTorch & GPU Acceleration
 
