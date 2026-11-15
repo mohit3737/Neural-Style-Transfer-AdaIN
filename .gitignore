@@ -1,0 +1,66 @@
+# ===========================================================================
+# Byte-compiled / optimized / DLL files
+# ===========================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# ===========================================================================
+# Large Training Datasets (COCO & WikiArt - 40,000+ files)
+# Demo samples are preserved in /samples/
+# ===========================================================================
+project/dataset/
+dataset/
+*.crdownload
+*.tar
+*.gz
+*.zip
+
+# ===========================================================================
+# Virtual Environments & Packages
+# ===========================================================================
+venv/
+.venv/
+env/
+.env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ===========================================================================
+# Jupyter Notebook Checkpoints & Scratch Files
+# ===========================================================================
+.ipynb_checkpoints/
+.virtual_documents/
+*/.ipynb_checkpoints/
+*/.virtual_documents/
+
+# ===========================================================================
+# Operating System & IDE Specific Files
+# ===========================================================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===========================================================================
+# Model Weights Exception (Keep our 26.6MB trained decoder checkpoint)
+# ===========================================================================
+!project/checkpoints/adain_decoder_100_batches.pth
