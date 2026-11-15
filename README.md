@@ -1,24 +1,14 @@
----
-title: Neural Style Transfer AdaIN
-emoji: 🎨
-colorFrom: purple
-colorTo: indigo
-sdk: streamlit
-sdk_version: 1.39.0
-app_file: app.py
-pinned: false
-license: mit
----
-
 # 🎨 AdaIN Neural Style Transfer Studio
 ### Arbitrary Real-Time Neural Style Transfer with PyTorch & GPU Acceleration
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://neural-style-transfer-adain-jcnwxjcmfy3crkvciaw36y.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.11%2B-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![CUDA](https://img.shields.io/badge/CUDA-12.8%20%7C%20RTX%204060-76B900?logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-toolkit)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.25%2B-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![License](https://img.shields.io/badge/License-MIT-success.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-11%2F11%20Passed-brightgreen.svg)](run_tests.py)
+
+🌐 **Live Interactive Web App**: [https://neural-style-transfer-adain-jcnwxjcmfy3crkvciaw36y.streamlit.app/](https://neural-style-transfer-adain-jcnwxjcmfy3crkvciaw36y.streamlit.app/)
 
 An end-to-end Computer Vision project implementing **Arbitrary Neural Style Transfer in Real-time with Adaptive Instance Normalization** (Huang & Belongie, ICCV 2017) and **High-Fidelity Perceptual Style Transfer** (Gatys et al., CVPR 2016), packaged with an interactive **Streamlit Web Application**.
 
