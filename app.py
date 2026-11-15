@@ -108,10 +108,11 @@ with st.sidebar:
     mode = st.radio(
         "Select Mode:",
         options=[
-            "✨ High-Fidelity Perceptual NST (Vivid Colors & Textures)",
-            "⚡ Fast AdaIN Feed-Forward (20ms Real-Time)"
+            "⚡ Fast AdaIN Feed-Forward (Instant ~0.3s - Recommended)",
+            "✨ High-Fidelity Perceptual NST (Iterative Optimization)"
         ],
-        index=0
+        index=0,
+        help="Fast AdaIN runs in a single forward pass (~0.3s). Perceptual NST runs multi-step backpropagation (takes ~15-25s on CPU, 5s on GPU)."
     )
 
     st.markdown("---")
@@ -141,17 +142,19 @@ with st.sidebar:
             format_func=lambda x: f"{x:.0e}",
             help="Higher values force stronger brushstrokes and painterly textures."
         )
-        default_steps = 60 if device_opt == "cpu" else 180
+        default_steps = 40 if device_opt == "cpu" else 180
         steps = st.slider(
             "Optimization Steps",
-            min_value=40,
-            max_value=250,
+            min_value=20,
+            max_value=200,
             value=default_steps,
-            step=20,
-            help="40-80 steps recommended on cloud CPU to avoid throttling; 180+ on GPU."
+            step=10,
+            help="40 steps is optimal for fast cloud CPU (~15s); 180+ on local GPU."
         )
         color_transfer = st.checkbox("Transfer Style Color Palette", value=True,
                                      help="Adapts scene lighting and colors to match the style artwork.")
+        if device_opt == "cpu":
+            st.caption("💡 *Cloud CPU Tip: 40 steps takes ~15 seconds. For instant generation in 0.3s, select 'Fast AdaIN' above.*")
 
 # Load models from cache
 encoder, decoder = get_models(device_opt)
