@@ -112,7 +112,6 @@ Benchmarked on **Intel Core i7-13620H** and **NVIDIA GeForce RTX 4060 Laptop GPU
 | :--- | :--- | :--- | :--- | :--- |
 | **AdaIN Feed-Forward** | 256×256 | CUDA | **16.8 ms** | 25.4 MB |
 | **AdaIN Feed-Forward** | 384×384 | CUDA | **26.1 ms** | 62.3 MB |
-| **AdaIN Feed-Forward** | 256×256 | CPU | **248 ms** | — |
 | **Perceptual NST (180 iters)** | 384×384 | CUDA | **4.97 s** | 138.0 MB |
 
 ---
