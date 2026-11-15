@@ -5,7 +5,7 @@ Author: Senior AI/ML Engineer
 """
 
 from pathlib import Path
-from typing import Tuple, List, Dict, Optional, Union
+from typing import Tuple, List, Dict, Optional, Union, Callable
 
 import torch
 import torch.nn as nn
@@ -287,7 +287,8 @@ def perceptual_style_transfer(
     tv_weight: float = 1e-5,
     color_transfer: bool = True,
     device: Optional[torch.device] = None,
-    encoder: Optional[VGG19Encoder] = None
+    encoder: Optional[VGG19Encoder] = None,
+    callback: Optional[Callable[[int, int, float], None]] = None
 ) -> torch.Tensor:
     """
     1. What it does: High-fidelity optimization-based Neural Style Transfer (Gatys et al.)
@@ -336,7 +337,7 @@ def perceptual_style_transfer(
         "relu5_1": 0.2
     }
 
-    for _ in range(steps):
+    for step in range(1, steps + 1):
         optimizer.zero_grad()
         current_img = torch.clamp(input_img, 0, 1)
         feats = encoder.extract_all(current_img)
@@ -356,6 +357,9 @@ def perceptual_style_transfer(
         total_loss = content_weight * c_loss + style_weight * s_loss + tv_weight * tv_loss
         total_loss.backward()
         optimizer.step()
+
+        if callback is not None:
+            callback(step, steps, total_loss.item())
 
     return torch.clamp(input_img, 0, 1).detach()
 

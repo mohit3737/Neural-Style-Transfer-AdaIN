@@ -108,11 +108,11 @@ with st.sidebar:
     mode = st.radio(
         "Select Mode:",
         options=[
-            "⚡ Fast AdaIN Feed-Forward (Instant ~0.3s - Recommended)",
-            "✨ High-Fidelity Perceptual NST (Iterative Optimization)"
+            "✨ High-Fidelity Perceptual NST (Vivid Colors & Textures - Recommended)",
+            "⚡ Fast AdaIN Feed-Forward (Real-Time 20ms)"
         ],
         index=0,
-        help="Fast AdaIN runs in a single forward pass (~0.3s). Perceptual NST runs multi-step backpropagation (takes ~15-25s on CPU, 5s on GPU)."
+        help="High-Fidelity Perceptual NST produces museum-grade oil paintings with rich brushwork and vivid colors. Fast AdaIN provides 20ms real-time inference."
     )
 
     st.markdown("---")
@@ -122,7 +122,7 @@ with st.sidebar:
         "Resolution (Pixels)",
         options=[256, 384, 512],
         value=default_res,
-        help="256px is optimal for fast CPU execution; 384px-512px for GPU."
+        help="256px produces sharp painterly brushwork in ~16s on CPU; 384px-512px for GPU."
     )
 
     if "Fast AdaIN" in mode:
@@ -142,19 +142,17 @@ with st.sidebar:
             format_func=lambda x: f"{x:.0e}",
             help="Higher values force stronger brushstrokes and painterly textures."
         )
-        default_steps = 40 if device_opt == "cpu" else 180
+        default_steps = 50 if device_opt == "cpu" else 180
         steps = st.slider(
             "Optimization Steps",
             min_value=20,
             max_value=200,
             value=default_steps,
             step=10,
-            help="40 steps is optimal for fast cloud CPU (~15s); 180+ on local GPU."
+            help="50 steps provides rich artistic brushwork and color harmony in ~16s on CPU; 180+ on GPU."
         )
         color_transfer = st.checkbox("Transfer Style Color Palette", value=True,
                                      help="Adapts scene lighting and colors to match the style artwork.")
-        if device_opt == "cpu":
-            st.caption("💡 *Cloud CPU Tip: 40 steps takes ~15 seconds. For instant generation in 0.3s, select 'Fast AdaIN' above.*")
 
 # Load models from cache
 encoder, decoder = get_models(device_opt)
@@ -259,19 +257,27 @@ if st.button("✨ Generate Stylized Artwork", use_container_width=True):
             res_pil = TF.to_pil_image(out_norm[0].clamp(0, 1).cpu())
             elapsed = time.time() - t_start
         else:
-            status.info(f"🎨 Running High-Fidelity Perceptual NST ({steps} steps) on {device}...")
+            prog_placeholder = st.empty()
+            prog_bar = prog_placeholder.progress(0, text=f"🎨 Initializing {steps}-step high-fidelity synthesis...")
+
+            def progress_callback(step: int, total: int, loss: float):
+                if step % 2 == 0 or step == total:
+                    prog_bar.progress(step / total, text=f"🎨 Synthesizing museum-quality brushstrokes... ({step}/{total} steps)")
+
             res_tensor = am.perceptual_style_transfer(
                 content_tensor=c_tensor,
                 style_tensor=s_tensor,
                 steps=steps,
-                lr=0.035,
+                lr=0.04,
                 style_weight=style_weight,
                 content_weight=0.6,
                 tv_weight=1e-5,
                 color_transfer=color_transfer,
                 device=device,
-                encoder=encoder
+                encoder=encoder,
+                callback=progress_callback
             )
+            prog_placeholder.empty()
             res_pil = TF.to_pil_image(res_tensor[0].cpu().clamp(0, 1))
             elapsed = time.time() - t_start
 
