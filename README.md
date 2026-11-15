@@ -58,8 +58,8 @@ An end-to-end Computer Vision project implementing **Arbitrary Neural Style Tran
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/adain-neural-style-transfer.git
-cd adain-neural-style-transfer
+git clone https://github.com/mohit3737/Neural-Style-Transfer-AdaIN.git
+cd Neural-Style-Transfer-AdaIN
 ```
 
 ### 2. Install Dependencies
